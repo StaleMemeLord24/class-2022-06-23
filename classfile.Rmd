@@ -1,18 +1,19 @@
 ---
-title: "class\"
+title: "Class"
 output: html_document
 date: '2022-06-24'
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(billboard)
 ```
 
 ```{r}
 x <- wiki_hot_100s |> 
-  as_tibble()
+  as_tibble() |> 
+  mutate(year = parse_number(year))
 ```
 
 ```{r}
@@ -20,7 +21,14 @@ x |>
   group_by(year) |> 
   distinct(artist) |> 
   summarize(distinct_artists= n()) |> 
-  arrange(desc(distinct_artists))
+  arrange(desc(distinct_artists)) |> 
+  ggplot(mapping = aes(x = year, y = distinct_artists)) + 
+  geom_point() + 
+  labs(title = "Number of Distinct Billboard 100 Artists Per Year",
+       subtitle = "1972 was the most distinct year",
+       x = "Year",
+       y = "Number of Distinct Artists",
+       caption = "Billboard Package")
 ```
 
 
