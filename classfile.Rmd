@@ -24,6 +24,7 @@ x |>
   arrange(desc(distinct_artists)) |> 
   ggplot(mapping = aes(x = year, y = distinct_artists)) + 
   geom_point() + 
+  geom_smooth(method = "lm", formula = y~x, se = FALSE) + 
   labs(title = "Number of Distinct Billboard 100 Artists Per Year",
        subtitle = "1972 was the most distinct year",
        x = "Year",
