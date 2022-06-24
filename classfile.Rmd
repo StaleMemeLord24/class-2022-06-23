@@ -11,7 +11,16 @@ library(billboard)
 ```
 
 ```{r}
-billboard |>  
-  
+x <- wiki_hot_100s |> 
+  as_tibble()
 ```
+
+```{r}
+x |> 
+  group_by(year) |> 
+  distinct(artist) |> 
+  summarize(distinct_artists= n()) |> 
+  arrange(desc(distinct_artists))
+```
+
 
